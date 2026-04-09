@@ -1625,6 +1625,42 @@
     .wa-float:hover {
       transform: scale(1.1);
     }
+
+    @media (max-width: 768px) {
+
+      .video-row {
+        justify-content: center;
+        gap: 0;
+      }
+
+      .vid-frame {
+        width: 220px;
+        height: 380px;
+        z-index: 2;
+      }
+
+      .side-img {
+        width: 120px;
+        height: 300px;
+        opacity: 0.5;
+      }
+
+      /* mover lados parcialmente fuera de pantalla */
+      .video-row>div:first-child {
+        transform: translateX(40px) scale(0.85);
+      }
+
+      .video-row>div:last-child {
+        transform: translateX(-40px) scale(0.85);
+      }
+
+      /* centro dominante */
+      .video-row>div:nth-child(2) {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+    }
   </style>
 </head>
 
