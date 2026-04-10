@@ -469,80 +469,89 @@
     /* SERVICES */
     .services {
       background: #fff;
-      padding: 5.5rem 6%
+      padding: 5.5rem 6%;
     }
 
     .svc-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      border: 1px solid rgba(0, 0, 0, .08)
+      border: 1px solid rgba(0, 0, 0, .08);
     }
 
+    /* CARD */
     .svc-card {
-      overflow: hidden;
       cursor: pointer;
-      border-right: 1px solid rgba(0, 0, 0, .08)
+      border-right: 1px solid rgba(0, 0, 0, .08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     .svc-card:last-child {
-      border-right: none
+      border-right: none;
     }
 
+    /* 🔥 CONTENEDOR DEL VIDEO */
     .svc-img {
-      height: 320px;
+      height: 700px;
+      /* más alto para evitar corte */
       position: relative;
       overflow: hidden;
-      transition: transform .5s
+      background: #000;
+      aspect-ratio: 9 / 16;
+      border-radius: 18px;
     }
 
-    .svc-img img {
+    /* 🔥 VIDEO PRO (sin cortes feos) */
+    .svc-img video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
       width: 100%;
       height: 100%;
+
       object-fit: cover;
+      object-position: center top;
+
+      /* 🔥 clave para que no se corte “raro” */
+      transform: translate(-50%, -50%) scale(1.05);
+
+      transition: transform .6s ease;
     }
 
-    .svc-card:hover .svc-img {
-      transform: scale(1.03)
+    /* zoom suave pro */
+    .svc-card:hover .svc-img video {
+      transform: translate(-50%, -50%) scale(1.12);
     }
 
-    .svc-ico {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4.5rem;
-      opacity: .4;
-      transition: opacity .4s, transform .4s
-    }
-
-    .svc-card:hover .svc-ico {
-      opacity: .65;
-      transform: scale(1.1)
-    }
-
+    /* GRADIENTE MÁS SUAVE (menos oscuro) */
     .svc-grad {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 55%;
-      background: linear-gradient(to top, rgba(0, 0, 0, .45), transparent)
+      inset: 0;
+      background: linear-gradient(to top,
+          rgba(0, 0, 0, .18),
+          transparent 60%);
+      pointer-events: none;
     }
 
+    /* FOOTER */
     .svc-foot {
       padding: 1.4rem 2rem;
       border-top: 1px solid rgba(0, 0, 0, .06);
       display: flex;
       justify-content: space-between;
-      align-items: center
+      align-items: center;
+      background: #fff;
+      z-index: 2;
+      position: relative;
     }
 
     .svc-name {
       font-size: .66rem;
       letter-spacing: .2em;
       text-transform: uppercase;
-      color: var(--mid)
+      color: var(--mid);
     }
 
     .svc-link {
@@ -553,14 +562,23 @@
       display: flex;
       align-items: center;
       gap: .4rem;
-      transition: gap .2s
+      transition: gap .2s;
     }
 
     .svc-card:hover .svc-link {
-      gap: .8rem
+      gap: .8rem;
     }
 
     /* PAIN */
+    .pain-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      /* 👈 muestra más la parte de arriba */
+      display: block;
+    }
+
     .pain {
       background: var(--warm-linen);
       padding: 6rem 6%;
@@ -617,8 +635,42 @@
 
     .pain-visual {
       position: relative;
-      height: 480px;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      /* 👈 clave */
+      max-height: 600px;
+      /* opcional para que no crezca demasiado */
+      max-width: 320px;
+      /* 👈 estilo vertical tipo celular */
+      margin: 0 auto;
+      border-radius: 16px;
+      /* 👈 bordes suaves */
       overflow: visible;
+    }
+
+    .pain-media::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+
+      background: linear-gradient(to right,
+          rgba(0, 0, 0, 0.35),
+          transparent 25%,
+          transparent 75%,
+          rgba(0, 0, 0, 0.35));
+    }
+
+    .pain-media {
+      width: 100%;
+      height: 100%;
+
+      border-radius: 16px;
+      overflow: hidden;
+      /* 👈 aquí sí se recorta */
+      position: relative;
+      z-index: 1;
     }
 
     .pain-img {
@@ -673,6 +725,7 @@
 
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       /* 👈 sombra elegante */
+      z-index: 10;
     }
 
     .stat-n {
@@ -997,6 +1050,20 @@
     }
 
     /* SALE BANNER */
+    .sale-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: 50% 15%;
+
+      transform: translate(-50%, -50%);
+    }
+
     .sale {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1091,18 +1158,20 @@
     }
 
     .sale-r {
-      background: var(--warm-sand);
       position: relative;
+      width: 100%;
+      height: 100%;
+      /* 👈 vertical limpio */
+      margin: 0 auto;
+
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center
     }
 
     .sale-r-bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(200, 180, 155, .6), rgba(165, 140, 110, .7))
+      z-index: 2;
+
     }
 
     .mirror:hover {
@@ -1159,25 +1228,89 @@
     .btn-wa {
       display: inline-flex;
       align-items: center;
-      gap: .8rem;
-      background: #25D366;
+      gap: .6rem;
+
+      padding: 1rem 1.6rem;
+      border-radius: 50px;
+
+      background: linear-gradient(135deg, #25D366, #1ebe5d);
       color: #fff;
-      font-size: .78rem;
-      font-weight: 500;
-      letter-spacing: .17em;
-      text-transform: uppercase;
-      padding: 1.05rem 2.8rem;
-      border: none;
-      cursor: pointer;
-      border-radius: 2px;
-      box-shadow: 0 8px 28px rgba(37, 211, 102, .35);
-      transition: transform .25s, box-shadow .25s;
-      animation: pulseWA 2.5s infinite
+
+      font-weight: 600;
+      letter-spacing: .03em;
+
+      text-decoration: none;
+
+      position: relative;
+      overflow: hidden;
+
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+
+      transition: transform .25s ease, box-shadow .25s ease;
+      animation: floatBtn 3s ease-in-out infinite;
     }
 
+    @keyframes floatBtn {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-3px);
+      }
+    }
+
+    /* ✨ Hover elegante */
     .btn-wa:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 44px rgba(37, 211, 102, .5)
+      transform: translateY(-4px) translateX(2px) scale(1.03);
+      box-shadow: 0 14px 35px rgba(37, 211, 102, 0.45);
+    }
+
+    /* 💥 Opcional: pequeño “rebote” */
+    .btn-wa:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    /* 💥 efecto brillo que pasa */
+    .btn-wa::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+
+      background: linear-gradient(120deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent);
+
+      transition: .6s;
+    }
+
+    .btn-wa:hover::before {
+      left: 100%;
+    }
+
+    /* 🔁 animación suave constante */
+    .btn-wa {
+      animation: pulseWA 2.5s infinite;
+    }
+
+    @keyframes pulseWA {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
     }
 
     .wa-i {
@@ -1715,7 +1848,7 @@
     <div class="hero-r">
       <div class="hero-photo">
         <video autoplay muted loop playsinline>
-          <source src="videos/Hair straightening.mp4" type="video/mp4">
+          <source src="videos/hero.mp4" type="video/mp4">
         </video>
         <!-- Decorative hair strands SVG -->
         <svg class="hero-svg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
@@ -1755,9 +1888,13 @@
     </div>
 
     <div class="svc-grid rv">
+
+      <!-- CARD 1 -->
       <div class="svc-card">
         <div class="svc-img img-hover">
-          <img src="imagenes/1.jpeg" alt="">
+          <video autoplay muted loop playsinline>
+            <source src="videos/servicio (1).mp4" type="video/mp4">
+          </video>
           <div class="svc-grad"></div>
         </div>
         <div class="svc-foot">
@@ -1765,26 +1902,35 @@
           <a href="#cta" class="svc-link">Reservar →</a>
         </div>
       </div>
+
+      <!-- CARD 2 -->
       <div class="svc-card">
         <div class="svc-img img-hover">
-          <img src="imagenes/1.jpeg" alt="">
+          <video autoplay muted loop playsinline>
+            <source src="videos/servicio (2).mp4" type="video/mp4">
+          </video>
+          <div class="svc-grad"></div>
+        </div>
+        <div class="svc-foot">
+          <span class="svc-name">Alisado Premium</span>
+          <a href="#quiz" class="svc-link">Saber más →</a>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="svc-card">
+        <div class="svc-img img-hover">
+          <video autoplay muted loop playsinline>
+            <source src="videos/servicio (3).mp4" type="video/mp4">
+          </video>
           <div class="svc-grad"></div>
         </div>
         <div class="svc-foot">
           <span class="svc-name">Agenda tu experiencia</span>
-          <a href="#quiz" class="svc-link">Diagnóstico gratis →</a>
+          <a href="#cta" class="svc-link">Diagnóstico gratis →</a>
         </div>
       </div>
-      <div class="svc-card">
-        <div class="svc-img img-hover">
-          <img src="imagenes/1.jpeg" alt="">
-          <div class="svc-grad"></div>
-        </div>
-        <div class="svc-foot">
-          <span class="svc-name">Alisados Premium</span>
-          <a href="#cta" class="svc-link">Saber más →</a>
-        </div>
-      </div>
+
     </div>
   </section>
 
@@ -1805,15 +1951,20 @@
       </ul>
     </div>
     <div class="rv d2">
-      <div class="pain-visual img-hover">
-        <img src="imagenes/1.jpeg" alt="Resultado alisado" class="pain-img">
+      <div class="pain-visual">
+
+        <div class="pain-media">
+          <video class="pain-video" autoplay muted loop playsinline>
+            <source src="videos/pain.mp4" type="video/mp4">
+          </video>
+        </div>
 
         <div class="pain-box-stat">
           <div class="stat-n">15'</div>
           <div class="stat-l">Lista cada<br />mañana</div>
         </div>
+
       </div>
-    </div>
   </section>
 
   <!-- ════════════════════ ABOUT ════════════════════ -->
@@ -1888,7 +2039,7 @@
       <!-- VIDEO CENTRAL -->
       <div class="vid-frame">
         <video class="video-main" autoplay muted loop playsinline>
-          <source src="videos/REEL TERAPIA DE BRILLO (1).mp4" type="video/mp4">
+          <source src="videos/resultados.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
       </div>
@@ -1908,9 +2059,6 @@
             <div class="res-tl">Antes → Después</div>
           </div>
         </div>
-        <div class="res-meta">
-          <div class="res-name">Alisado Orgánico</div>
-        </div>
       </div>
       <div class="res-card rv d2">
         <div class="res-img img-hover">
@@ -1919,9 +2067,6 @@
             <div class="res-tl">Antes → Después</div>
           </div>
         </div>
-        <div class="res-meta">
-          <div class="res-name">Keratina Premium</div>
-        </div>
       </div>
       <div class="res-card rv d3">
         <div class="res-img img-hover">
@@ -1929,9 +2074,6 @@
           <div class="res-tag">
             <div class="res-tl">Antes → Después</div>
           </div>
-        </div>
-        <div class="res-meta">
-          <div class="res-name">Spa Capilar</div>
         </div>
       </div>
     </div>
@@ -1952,8 +2094,13 @@
       <a href="#cta" class="btn-border">Reclamar descuento &nbsp;→</a>
     </div>
     <div class="sale-r img-hover">
-      <img src="imagenes/1.jpeg" alt="Oferta alisado" class="sale-img">
+
+      <video class="sale-video" autoplay muted loop playsinline>
+        <source src="videos/hero.mp4" type="video/mp4">
+      </video>
+
       <div class="sale-r-bg"></div>
+
     </div>
   </section>
 
@@ -1965,9 +2112,9 @@
       Cupos limitados por semana. Atención 100% personalizada.<br />
       Escríbenos ahora y te agendamos de inmediato.
     </p>
-    <a href="https://wa.me/573000000000?text=¡Hola!%20Vi%20su%20landing%20y%20quiero%20mi%20diagnóstico%20capilar%20gratis%20%F0%9F%92%86%E2%80%8D%E2%99%80%EF%B8%8F"
+    <a href="https://wa.me/573045892800?text=¡Hola!%20Vi%20su%20landing%20y%20quiero%20mi%20diagnóstico%20capilar%20gratis%20%F0%9F%92%86%E2%80%8D%E2%99%80%EF%B8%8F"
       class="btn-wa rv" target="_blank" rel="noopener">
-      <span class="wa-i">📲</span>Escribir por WhatsApp ahora
+      <span class="wa-i"></span>Escribir por WhatsApp ahora
     </a>
     <div class="trust-row rv">
       <div class="trust-i"><span class="t-ico">⭐</span><span class="t-lbl">+10 años</span></div>
@@ -2070,7 +2217,7 @@
       const p = document.getElementById('pf').value.trim();
       if (!n || !p) { alert('Por favor completa tu nombre y número de WhatsApp.'); return; }
       const m = encodeURIComponent(`¡Hola Lorenalissados! Soy ${n}.\n\nCompletei mi diagnóstico capilar y quiero agendar mi cita. Mi WhatsApp es: ${p}\n\n¡Estoy lista para transformar mi cabello! 💆‍♀️✨`);
-      window.open(`https://wa.me/573000000000?text=${m}`, '_blank');
+      window.open(`https://wa.me/573045892800?text=${m}`, '_blank');
     }
     // Scroll reveal
     const obs = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('on') }), { threshold: .1 });
@@ -2113,7 +2260,7 @@
       carousel.insertBefore(last, items[0]);
     });
   </script>
-  <a href="https://wa.me/573000000000?text=Hola%20quiero%20mi%20diagnóstico%20capilar" class="wa-float" target="_blank">
+  <a href="https://wa.me/573045892800?text=Hola%20quiero%20mi%20diagnóstico%20capilar" class="wa-float" target="_blank">
 
     <img src="imagenes/whatsapp.png" alt="WhatsApp">
 
