@@ -1804,6 +1804,38 @@
         /* 🔥 neutraliza */
       }
     }
+
+    .since-link {
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    /* Línea animada debajo */
+    .since-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background: #e5c513;
+      /* puedes cambiar el color */
+      transition: width 0.3s ease;
+    }
+
+    /* Hover efecto */
+    .since-link:hover {
+      color: #e5c513;
+      transform: translateY(-2px);
+    }
+
+    .since-link:hover::after {
+      width: 100%;
+    }
   </style>
 </head>
 
@@ -1826,7 +1858,7 @@
     </div>
     <div class="nav-right">
       <a href="#quiz">Diagnóstico gratis</a>
-      <a href="#cta" class="pill-btn">Reservar cita</a>
+      <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="pill-btn">Reservar cita</a>
     </div>
   </nav>
 
@@ -1835,13 +1867,14 @@
     <div class="hero-l">
       <div class="eyebrow">Centro de Alisados &amp; Spa para Cabellos</div>
       <h1 class="hero-h1">El arte<br />del <em>cabello</em></h1>
-      <div class="hero-script">Cabello que siempre soñaste</div>
+      <div class="hero-script">que siempre soñaste</div>
       <p class="hero-body">
         Liso, brillante y manejable todos los días en solo <strong>15 minutos</strong>.
         Tratamientos profesionales personalizados con más de 10 años de experiencia.
       </p>
       <div class="hero-btns">
-        <a href="#cta" class="btn-dark">Reservar cita &nbsp;→</a>
+        <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="btn-dark">Reservar cita
+          &nbsp;→</a>
         <a href="#resultados" class="btn-ghost">Ver resultados</a>
       </div>
     </div>
@@ -1900,7 +1933,8 @@
         </div>
         <div class="svc-foot">
           <span class="svc-name">Terapias capilares</span>
-          <a href="#cta" class="svc-link">Reservar →</a>
+          <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="svc-link">Reservar
+            →</a>
         </div>
       </div>
 
@@ -1915,7 +1949,8 @@
         </div>
         <div class="svc-foot">
           <span class="svc-name">Alisado</span>
-          <a href="#quiz" class="svc-link">Saber más →</a>
+          <a href="https://wa.me/573045892800?text=Hola%20quiero%20saber%20mas%20sobre%20el%20alisado"
+            class="svc-link">Saber más →</a>
         </div>
       </div>
 
@@ -1930,7 +1965,8 @@
         </div>
         <div class="svc-foot">
           <span class="svc-name">Agenda tu experiencia</span>
-          <a href="#cta" class="svc-link">Diagnóstico gratis →</a>
+          <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="svc-link">Diagnóstico
+            gratis →</a>
         </div>
       </div>
 
@@ -2010,7 +2046,8 @@
           style="color:rgba(255,255,255,.85)">capilar</em></h2>
       <div class="sh-script" style="color:rgba(255,255,255,.55);text-align:left;margin-top:.4rem">Sin frizz. Sin
         madrugadas.</div>
-      <a href="#cta" class="btn-outline-white">Comenzar ahora &nbsp;→</a>
+      <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="btn-outline-white">Comenzar
+        ahora &nbsp;→</a>
     </div>
     <div class="rv d2">
       <ul class="p-list">
@@ -2096,7 +2133,8 @@
         <li>Garantía de 15 días incluida</li>
         <li>Descuento aplicado de inmediato</li>
       </ul>
-      <a href="#cta" class="btn-border">Reclamar descuento &nbsp;→</a>
+      <a href="https://wa.me/573045892800?text=Hola%20quiero%20el%20descuento" class="btn-border">Reclamar descuento
+        &nbsp;→</a>
     </div>
     <div class="sale-r img-hover">
 
@@ -2201,10 +2239,12 @@
     <div class="brand">
       <img src="imagenes/logo.png" alt="Lorenalissados logo" class="logo">
     </div>
-    <div class="f-copy">
-      <p>Centro de Alisados &amp; Spa para Cabellos</p>
-      <p style="margin-top:.25rem">© 2026 — Todos los derechos reservados</p>
-    </div>
+    <p class="footer-copy">
+      © 2026 — Todos los derechos reservados - realizado con el corazón por
+      <a href="https://agenciasincemarketing.com/" target="_blank" class="since-link">
+        by SINCE
+      </a>
+    </p>
     <div class="f-right">
       <p>WhatsApp · Instagram</p>
       <p style="margin-top:.25rem">Colombia</p>
