@@ -497,32 +497,27 @@
       /* más alto para evitar corte */
       position: relative;
       overflow: hidden;
-      background: #000;
+      background: var(--off-white);
       aspect-ratio: 9 / 16;
       border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* 🔥 VIDEO PRO (sin cortes feos) */
     .svc-img video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-
+      position: relative;
       width: 100%;
       height: 100%;
-
-      object-fit: cover;
+      object-fit: contain;
       object-position: center top;
-
-      /* 🔥 clave para que no se corte “raro” */
-      transform: translate(-50%, -50%) scale(1.05);
-
       transition: transform .6s ease;
     }
 
-    /* zoom suave pro */
+    /* zoom suave pro (removed cropping scale) */
     .svc-card:hover .svc-img video {
-      transform: translate(-50%, -50%) scale(1.12);
+      transform: scale(1.02);
     }
 
     /* GRADIENTE MÁS SUAVE (menos oscuro) */
@@ -573,10 +568,10 @@
     .pain-video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: top center;
-      /* 👈 muestra más la parte de arriba */
       display: block;
+      background: var(--warm-linen);
     }
 
     .pain {
@@ -979,7 +974,8 @@
     .video-row>div {
       transition: all 0.5s ease;
       transform: scale(0.85);
-      opacity: 0.6;
+      opacity: 0.9;
+      /* Increased from 0.6 for better clarity */
       max-width: 100%;
     }
 
@@ -1010,7 +1006,8 @@
     .video-main {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      background: var(--warm-linen);
     }
 
     /* IMÁGENES */
@@ -1018,7 +1015,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.6) blur(1px);
+      /* Removed brightness and blur filters */
     }
 
     /* DIFUMINADO DEL VIDEO (bordes elegantes) */
@@ -1027,27 +1024,14 @@
       inset: 0;
       pointer-events: none;
       background: linear-gradient(to right,
-          rgba(0, 0, 0, 0.6) 0%,
+          rgba(0, 0, 0, 0.2) 0%,
           transparent 20%,
           transparent 80%,
-          rgba(0, 0, 0, 0.6) 100%);
+          rgba(0, 0, 0, 0.2) 100%);
       z-index: 2;
     }
 
-    /* DIFUMINADO DE LAS IMÁGENES HACIA EL CENTRO */
-    .side-img:first-child::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9));
-    }
-
-    .side-img:last-child::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9));
-    }
+    /* Removed white gradients that made side images look blurry/washed out */
 
     /* SALE BANNER */
     .sale-video {
@@ -1622,7 +1606,8 @@
     /* RESPONSIVE */
     @media(max-width:960px) {
       nav {
-        grid-template-columns: auto 1fr;
+        display: flex;
+        justify-content: center;
         padding: .9rem 1.5rem
       }
 
@@ -1646,12 +1631,21 @@
       }
 
       .svc-grid {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        border: none;
       }
 
       .svc-card {
         border-right: none !important;
-        border-bottom: 1px solid rgba(0, 0, 0, .08)
+        border-bottom: 1px solid rgba(0, 0, 0, .08);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .svc-img {
+        height: 450px;
+        /* Reduced from 700px for mobile */
       }
 
       .pain {
@@ -1782,9 +1776,9 @@
       }
 
       /* CENTRO MUCHO MÁS GRANDE */
-      .video-row .active {
-        transform: scale(1.25);
-        /* 🔥 aquí está la magia */
+      .video-row>div:nth-child(2) {
+        transform: scale(1.15);
+        /* Consistently using nth-child(2) for both mobile and desktop */
         opacity: 1;
         z-index: 3;
       }
@@ -1800,8 +1794,8 @@
 
     @media (max-width: 768px) {
       .video-row>div:nth-child(2) {
-        transform: scale(1);
-        /* 🔥 neutraliza */
+        transform: scale(1.1);
+        /* Reduced scale to fit better */
       }
     }
 
@@ -1880,7 +1874,7 @@
     </div>
     <div class="hero-r">
       <div class="hero-photo">
-        <video autoplay muted loop playsinline>
+        <video autoplay muted loop playsinline webkit-playsinline preload="auto">
           <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840335/hero_bpd5kn.mp4" type="video/mp4">
         </video>
         <!-- Decorative hair strands SVG -->
@@ -1912,67 +1906,6 @@
         </div>
   </section>
 
-  <!-- ════════════════════ SERVICES ════════════════════ -->
-  <section class="services" id="servicios">
-    <div class="sh rv">
-      <div class="sh-label">Nuestros servicios</div>
-      <h2 class="sh-title">Nuestros <em>Servicios</em> más solicitados</h2>
-      <div class="sh-script">Elige tu experiencia</div>
-    </div>
-
-    <div class="svc-grid rv">
-
-      <!-- CARD 1 -->
-      <div class="svc-card">
-        <div class="svc-img img-hover">
-          <video autoplay muted loop playsinline>
-            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775852390/servicios_tlup5z.mp4"
-              type="video/mp4">
-          </video>
-          <div class="svc-grad"></div>
-        </div>
-        <div class="svc-foot">
-          <span class="svc-name">Terapias capilares</span>
-          <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="svc-link">Reservar
-            →</a>
-        </div>
-      </div>
-
-      <!-- CARD 2 -->
-      <div class="svc-card">
-        <div class="svc-img img-hover">
-          <video autoplay muted loop playsinline>
-            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840333/resultados_i7pqck.mp4"
-              type="video/mp4">
-          </video>
-          <div class="svc-grad"></div>
-        </div>
-        <div class="svc-foot">
-          <span class="svc-name">Alisado</span>
-          <a href="https://wa.me/573045892800?text=Hola%20quiero%20saber%20mas%20sobre%20el%20alisado"
-            class="svc-link">Saber más →</a>
-        </div>
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="svc-card">
-        <div class="svc-img img-hover">
-          <video autoplay muted loop playsinline>
-            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840334/servicio_3_vorno1.mp4"
-              type="video/mp4">
-          </video>
-          <div class="svc-grad"></div>
-        </div>
-        <div class="svc-foot">
-          <span class="svc-name">Agenda tu experiencia</span>
-          <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="svc-link">Diagnóstico
-            gratis →</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- ════════════════════ PAIN ════════════════════ -->
   <section class="pain">
     <div class="rv">
@@ -1993,7 +1926,7 @@
       <div class="pain-visual">
 
         <div class="pain-media">
-          <video class="pain-video" autoplay muted loop playsinline>
+          <video class="pain-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
             <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840334/pain_g2zaw9.mp4"
               type="video/mp4">
           </video>
@@ -2005,7 +1938,70 @@
         </div>
 
       </div>
+    </div>
   </section>
+
+  <!-- ════════════════════ SERVICES ════════════════════ -->
+  <section class="services" id="servicios">
+    <div class="sh rv">
+      <div class="sh-label">Nuestros servicios</div>
+      <h2 class="sh-title">Nuestros <em>Servicios</em> más solicitados</h2>
+      <div class="sh-script">Elige tu experiencia</div>
+    </div>
+
+    <div class="svc-grid rv">
+
+      <!-- CARD 1 -->
+      <div class="svc-card">
+        <div class="svc-img img-hover">
+          <video autoplay muted loop playsinline webkit-playsinline preload="auto">
+            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775852390/servicios_tlup5z.mp4"
+              type="video/mp4">
+          </video>
+          <div class="svc-grad"></div>
+        </div>
+        <div class="svc-foot">
+          <span class="svc-name">Terapias capilares</span>
+          <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="svc-link">Reservar
+            →</a>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="svc-card">
+        <div class="svc-img img-hover">
+          <video autoplay muted loop playsinline webkit-playsinline preload="auto">
+            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840333/resultados_i7pqck.mp4"
+              type="video/mp4">
+          </video>
+          <div class="svc-grad"></div>
+        </div>
+        <div class="svc-foot">
+          <span class="svc-name">Alisado</span>
+          <a href="https://wa.me/573045892800?text=Hola%20quiero%20saber%20mas%20sobre%20el%20alisado"
+            class="svc-link">Saber más →</a>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="svc-card">
+        <div class="svc-img img-hover">
+          <video autoplay muted loop playsinline webkit-playsinline preload="auto">
+            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840334/servicio_3_vorno1.mp4"
+              type="video/mp4">
+          </video>
+          <div class="svc-grad"></div>
+        </div>
+        <div class="svc-foot">
+          <span class="svc-name">Agenda tu experiencia</span>
+          <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="svc-link">Diagnóstico
+            gratis →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 
   <!-- ════════════════════ ABOUT ════════════════════ -->
   <section class="about" id="nosotras">
@@ -2078,8 +2074,8 @@
       </div>
 
       <!-- VIDEO CENTRAL -->
-      <div class="vid-frame">
-        <video class="video-main" autoplay muted loop playsinline>
+      <div class="vid-frame active">
+        <video class="video-main" autoplay muted loop playsinline webkit-playsinline preload="auto">
           <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840333/resultados_i7pqck.mp4"
             type="video/mp4">
         </video>
@@ -2138,7 +2134,7 @@
     </div>
     <div class="sale-r img-hover">
 
-      <video class="sale-video" autoplay muted loop playsinline>
+      <video class="sale-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
         <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840335/hero_bpd5kn.mp4" type="video/mp4">
       </video>
 
@@ -2303,6 +2299,28 @@
 
       // moverlo al inicio
       carousel.insertBefore(last, items[0]);
+    });
+
+    // Forced autoplay for mobile
+    document.addEventListener('DOMContentLoaded', () => {
+      const videos = document.querySelectorAll('video');
+
+      const playVideos = () => {
+        videos.forEach(v => {
+          v.play().catch(error => {
+            console.log("Autoplay prevented, will play on interaction:", error);
+          });
+        });
+        // Remove listeners after first interaction
+        window.removeEventListener('touchstart', playVideos);
+        window.removeEventListener('mousedown', playVideos);
+      };
+
+      window.addEventListener('touchstart', playVideos);
+      window.addEventListener('mousedown', playVideos);
+
+      // Attempt immediate play
+      playVideos();
     });
   </script>
   <a href="https://wa.me/573045892800?text=Hola%20quiero%20mi%20diagnóstico%20capilar" class="wa-float" target="_blank">
