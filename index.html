@@ -2301,27 +2301,59 @@
       carousel.insertBefore(last, items[0]);
     });
 
-    // Forced autoplay for mobile
-    document.addEventListener('DOMContentLoaded', () => {
+    // Robust video manager for mobile/iOS (Autoplay Fix)
+    const initVideos = () => {
       const videos = document.querySelectorAll('video');
 
-      const playVideos = () => {
-        videos.forEach(v => {
-          v.play().catch(error => {
-            console.log("Autoplay prevented, will play on interaction:", error);
-          });
+      // 1. Force muted & inline state via property (more reliable than attribute alone)
+      videos.forEach(v => {
+        v.muted = true;
+        v.setAttribute('muted', '');
+        v.playsInline = true;
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+        v.preload = "auto";
+      });
+
+      // 2. Intersection Observer (Try to play when video enters viewport)
+      const videoObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const v = entry.target;
+            v.play().catch(err => {
+              // Silently catch and wait for interaction if blocked
+              console.log("Observer play blocked, waiting for interaction.");
+            });
+          }
         });
-        // Remove listeners after first interaction
-        window.removeEventListener('touchstart', playVideos);
-        window.removeEventListener('mousedown', playVideos);
+      }, { threshold: 0.1 });
+
+      videos.forEach(v => videoObs.observe(v));
+
+      // 3. Global Interaction Trigger (Guaranteed start after first touch/scroll/click)
+      const triggerPlay = () => {
+        videos.forEach(v => {
+          if (v.paused) {
+            v.play().catch(() => { });
+          }
+        });
+        // Remove listeners to avoid redundant calls
+        ['touchstart', 'click', 'scroll', 'mousedown'].forEach(ev => {
+          document.removeEventListener(ev, triggerPlay);
+        });
       };
 
-      window.addEventListener('touchstart', playVideos);
-      window.addEventListener('mousedown', playVideos);
+      ['touchstart', 'click', 'scroll', 'mousedown'].forEach(ev => {
+        document.addEventListener(ev, triggerPlay, { passive: true });
+      });
+    };
 
-      // Attempt immediate play
-      playVideos();
-    });
+    // Initialize logic
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideos);
+    } else {
+      initVideos();
+    }
   </script>
   <a href="https://wa.me/573045892800?text=Hola%20quiero%20mi%20diagnóstico%20capilar" class="wa-float" target="_blank">
 
