@@ -1038,20 +1038,42 @@
       position: absolute;
       top: 50%;
       left: 50%;
-
       width: 100%;
       height: 100%;
-
       object-fit: cover;
       object-position: 50% 15%;
-
       transform: translate(-50%, -50%);
+    }
+
+    .sale-r {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .sale .rv {
+      transform: translateY(30px) !important;
+      /* Restoring original animation */
     }
 
     .sale {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 400px
+      gap: 3rem;
+      /* Reduced gap to bring video closer to text */
+      padding: 8rem 7%;
+      align-items: center;
+      background: var(--dark);
+      overflow: visible;
+    }
+
+    /* Remove the upward animation specifically for this section to avoid 'bottom borders' */
+    .sale .rv {
+      transform: none !important;
     }
 
     .sale-l {
@@ -1145,9 +1167,6 @@
       position: relative;
       width: 100%;
       height: 100%;
-      /* 👈 vertical limpio */
-      margin: 0 auto;
-
       overflow: hidden;
     }
 
@@ -1673,11 +1692,20 @@
       }
 
       .sale {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 5rem 7%;
+        /* Align with site padding */
       }
 
-      .sale-r {
-        height: 260px
+      .sale-l {
+        padding: 0;
+        background: none;
+      }
+
+      .sale-frame {
+        height: 340px;
+        /* More vertical-friendly for mobile */
       }
 
       .quiz-inner {
@@ -2132,14 +2160,10 @@
       <a href="https://wa.me/573045892800?text=Hola%20quiero%20el%20descuento" class="btn-border">Reclamar descuento
         &nbsp;→</a>
     </div>
-    <div class="sale-r img-hover">
-
+    <div class="sale-r rv d2">
       <video class="sale-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
         <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840335/hero_bpd5kn.mp4" type="video/mp4">
       </video>
-
-      <div class="sale-r-bg"></div>
-
     </div>
   </section>
 
