@@ -474,44 +474,38 @@
 
     .svc-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border: 1px solid rgba(0, 0, 0, .08);
+      grid-template-columns: repeat(2, minmax(280px, 320px));
+      justify-content: center;
+      gap: 3rem;
+      border: none;
     }
 
     /* CARD */
     .svc-card {
       cursor: pointer;
-      border-right: 1px solid rgba(0, 0, 0, .08);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-    }
-
-    .svc-card:last-child {
-      border-right: none;
     }
 
     /* 🔥 CONTENEDOR DEL VIDEO */
     .svc-img {
-      height: 700px;
-      /* más alto para evitar corte */
       position: relative;
       overflow: hidden;
       background: var(--off-white);
-      aspect-ratio: 9 / 16;
       border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 9 / 16;
+      margin: 1.8rem auto;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
     }
 
     /* 🔥 VIDEO PRO (sin cortes feos) */
     .svc-img video {
-      position: relative;
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      object-position: center top;
+      object-fit: cover;
+      display: block;
       transition: transform .6s ease;
     }
 
@@ -532,12 +526,14 @@
 
     /* FOOTER */
     .svc-foot {
-      padding: 1.4rem 2rem;
-      border-top: 1px solid rgba(0, 0, 0, .06);
+      padding: 0 0 2rem 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #fff;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+      background: transparent;
       z-index: 2;
       position: relative;
     }
@@ -1650,23 +1646,39 @@
       }
 
       .svc-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
         border: none;
+        overflow: hidden;
+        padding: 2rem 0;
       }
 
       .svc-card {
-        border-right: none !important;
-        border-bottom: 1px solid rgba(0, 0, 0, .08);
-        border-radius: 12px;
-        overflow: hidden;
+        width: 155px;
+        flex-shrink: 0;
+        transition: all 0.5s ease;
+        transform: scale(0.8);
+        opacity: 0.5;
+        cursor: pointer;
       }
 
-      .svc-img {
-        height: 450px;
-        /* Reduced from 700px for mobile */
+      .svc-grid>.svc-card:nth-child(2) {
+        transform: scale(1.12);
+        opacity: 1;
+        z-index: 3;
       }
 
+      .svc-foot {
+        flex-direction: column;
+        gap: 0.6rem;
+        text-align: center;
+        padding: 0 0 1rem 0;
+      }
+
+
+      /* Se removió height fixed para mobile en .svc-img */
       .pain {
         grid-template-columns: 1fr;
         gap: 2.5rem;
@@ -1703,7 +1715,7 @@
         background: none;
       }
 
-      .sale-frame {
+      .sale-r {
         height: 340px;
         /* More vertical-friendly for mobile */
       }
@@ -1903,7 +1915,8 @@
     <div class="hero-r">
       <div class="hero-photo">
         <video autoplay muted loop playsinline webkit-playsinline preload="auto">
-          <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840335/hero_bpd5kn.mp4" type="video/mp4">
+          <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/v1775840335/hero_bpd5kn.mp4"
+            type="video/mp4">
         </video>
         <!-- Decorative hair strands SVG -->
         <svg class="hero-svg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
@@ -1955,7 +1968,7 @@
 
         <div class="pain-media">
           <video class="pain-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
-            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840334/pain_g2zaw9.mp4"
+            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/v1776375688/Rubio_rdsf5h.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1983,7 +1996,8 @@
       <div class="svc-card">
         <div class="svc-img img-hover">
           <video autoplay muted loop playsinline webkit-playsinline preload="auto">
-            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775852390/servicios_tlup5z.mp4"
+            <source
+              src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/v1775852390/servicios_tlup5z.mp4"
               type="video/mp4">
           </video>
           <div class="svc-grad"></div>
@@ -1995,35 +2009,22 @@
         </div>
       </div>
 
-      <!-- CARD 2 -->
-      <div class="svc-card">
-        <div class="svc-img img-hover">
-          <video autoplay muted loop playsinline webkit-playsinline preload="auto">
-            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840333/resultados_i7pqck.mp4"
-              type="video/mp4">
-          </video>
-          <div class="svc-grad"></div>
-        </div>
-        <div class="svc-foot">
-          <span class="svc-name">Alisado</span>
-          <a href="https://wa.me/573045892800?text=Hola%20quiero%20saber%20mas%20sobre%20el%20alisado"
-            class="svc-link">Saber más →</a>
-        </div>
-      </div>
+
 
       <!-- CARD 3 -->
       <div class="svc-card">
         <div class="svc-img img-hover">
           <video autoplay muted loop playsinline webkit-playsinline preload="auto">
-            <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840334/servicio_3_vorno1.mp4"
+            <source
+              src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/v1775840334/servicio_3_vorno1.mp4"
               type="video/mp4">
           </video>
           <div class="svc-grad"></div>
         </div>
         <div class="svc-foot">
-          <span class="svc-name">Agenda tu experiencia</span>
-          <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="svc-link">Diagnóstico
-            gratis →</a>
+          <span class="svc-name">Alisados</span>
+          <a href="https://wa.me/573045892800?text=Hola%20quiero%20reservar%20una%20cita" class="svc-link">Saber mas
+            →</a>
         </div>
       </div>
 
@@ -2104,7 +2105,8 @@
       <!-- VIDEO CENTRAL -->
       <div class="vid-frame active">
         <video class="video-main" autoplay muted loop playsinline webkit-playsinline preload="auto">
-          <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840333/resultados_i7pqck.mp4"
+          <source
+            src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/v1775840333/resultados_i7pqck.mp4"
             type="video/mp4">
         </video>
         <div class="video-overlay"></div>
@@ -2162,7 +2164,8 @@
     </div>
     <div class="sale-r rv d2">
       <video class="sale-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
-        <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/v1775840335/hero_bpd5kn.mp4" type="video/mp4">
+        <source src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/v1775840335/hero_bpd5kn.mp4"
+          type="video/mp4">
       </video>
     </div>
   </section>
@@ -2324,6 +2327,19 @@
       // moverlo al inicio
       carousel.insertBefore(last, items[0]);
     });
+
+    const svcGrid = document.querySelector('.svc-grid');
+    if (svcGrid) {
+      svcGrid.addEventListener("click", () => {
+        if (window.innerWidth <= 960) {
+          const items = svcGrid.children;
+          if (items.length > 0) {
+            const last = items[items.length - 1];
+            svcGrid.insertBefore(last, items[0]);
+          }
+        }
+      });
+    }
 
     // Robust video manager for mobile/iOS (Autoplay Fix)
     const initVideos = () => {
